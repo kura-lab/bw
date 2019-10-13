@@ -1,3 +1,3 @@
-module github.com/kura-lab/bubble_wrap/v1
+module github.com/kura-lab/bw/v1
 
 go 1.12
