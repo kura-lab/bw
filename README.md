@@ -1,5 +1,9 @@
 # Terminal progress table like Bubble Wrap for Golang
 
+# Demo
+
+![bubble_wrap](https://user-images.githubusercontent.com/1156984/66710841-4becfb00-edbb-11e9-855f-d68a86e60af3.gif)
+
 # Installation
 
 ```
