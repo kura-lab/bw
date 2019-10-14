@@ -19,6 +19,7 @@ type BubbleWrap struct {
 }
 
 const cursorHide = "\033[?25l"
+const cursorShow = "\033[?25h"
 
 func NewBubbleWrap(numbers int) *BubbleWrap {
 	bw := new(BubbleWrap)
@@ -110,7 +111,7 @@ func (bw *BubbleWrap) Display() {
 
 	// output result
 	if trunc == 100 {
-		fmt.Printf("\n\nBubble Wrape finished.\n")
+		fmt.Printf(cursorShow + "\n\nBubble Wrape finished.\n")
 	}
 }
 
