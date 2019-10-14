@@ -4,14 +4,18 @@ import (
 	"fmt"
 	"math"
 	"strconv"
+
+	"github.com/fatih/color"
 )
 
 type BubbleWrap struct {
-	Numbers int
-	Column  int
-	Bubbles []bool
-	before  string
-	after   string
+	Numbers     int
+	Column      int
+	Bubbles     []bool
+	before      string
+	after       string
+	beforeColor color.Color
+	afterColor  color.Color
 }
 
 func NewBubbleWrap(numbers int) *BubbleWrap {
@@ -44,6 +48,12 @@ func (bw *BubbleWrap) ChangeBubbleShape(before string, after string) *BubbleWrap
 	return bw
 }
 
+func (bw *BubbleWrap) ChangeBubbleColor(before *color.Color, after *color.Color) *BubbleWrap {
+	bw.beforeColor = *before
+	bw.afterColor = *after
+	return bw
+}
+
 func (bw *BubbleWrap) Pop(i int) {
 	bw.Bubbles[i] = true
 }
@@ -53,10 +63,18 @@ func (bw *BubbleWrap) Display() {
 	var c, comp int
 	for _, v := range bw.Bubbles {
 		if v {
-			fmt.Printf("%v", bw.before)
+			if &bw.beforeColor != nil {
+				bw.beforeColor.Printf("%v", bw.before)
+			} else {
+				fmt.Printf("%v", bw.before)
+			}
 			comp++
 		} else {
-			fmt.Printf("%v", bw.after)
+			if &bw.afterColor != nil {
+				bw.afterColor.Printf("%v", bw.after)
+			} else {
+				fmt.Printf("%v", bw.after)
+			}
 		}
 
 		c++
@@ -113,5 +131,5 @@ func (bw *BubbleWrap) printCopyRight() {
 }
 
 func (bw *BubbleWrap) version() string {
-	return "1.0.4"
+	return "1.0.5"
 }

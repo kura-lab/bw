@@ -4,6 +4,8 @@ import (
 	"math/rand"
 	"testing"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 func TestDemo(t *testing.T) {
@@ -47,6 +49,21 @@ func TestChangeBubbleShape(t *testing.T) {
 	numbers := 220
 
 	bw := NewBubbleWrap(numbers).ChangeBubbleShape("o", "x")
+	bw.Display()
+
+	for i := 0; i < numbers; i++ {
+		time.Sleep(10 * time.Millisecond)
+		bw.Pop(i)
+		bw.Redisplay()
+	}
+}
+
+func TestChangeBubbleColor(t *testing.T) {
+	numbers := 220
+
+	before := color.New(color.FgCyan)
+	after := color.New(color.FgRed)
+	bw := NewBubbleWrap(numbers).ChangeBubbleColor(before, after)
 	bw.Display()
 
 	for i := 0; i < numbers; i++ {

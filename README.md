@@ -34,3 +34,20 @@ func main() {
 	}
 }
 ```
+
+# Settings
+
+```
+numbers := 220
+
+// set numbers of a column
+bw := NewBubbleWrap(numbers).SetColumn(60)
+
+// change bubble's shapes
+bw := NewBubbleWrap(numbers).ChangeBubbleShape("o", "x")
+
+// change bubble's colors
+before := color.New(color.FgCyan)
+after := color.New(color.FgRed)
+bw := NewBubbleWrap(numbers).ChangeBubbleColor(before, after)
+```
