@@ -9,9 +9,9 @@ import (
 )
 
 type BubbleWrap struct {
-	Numbers     int
-	Column      int
-	Bubbles     []bool
+	numbers     int
+	column      int
+	bubbles     []bool
 	before      string
 	after       string
 	beforeColor color.Color
@@ -27,20 +27,20 @@ func NewBubbleWrap(numbers int) *BubbleWrap {
 	if numbers <= 0 {
 		return nil
 	} else {
-		bw.Numbers = numbers
+		bw.numbers = numbers
 	}
 
-	bw.Column = 50
+	bw.column = 50
 	bw.before = "*"
 	bw.after = "."
 
-	bw.Bubbles = make([]bool, bw.Numbers)
+	bw.bubbles = make([]bool, bw.numbers)
 
 	return bw
 }
 
 func (bw *BubbleWrap) SetColumn(column int) *BubbleWrap {
-	bw.Column = column
+	bw.column = column
 	return bw
 }
 
@@ -57,13 +57,13 @@ func (bw *BubbleWrap) ChangeBubbleColor(before *color.Color, after *color.Color)
 }
 
 func (bw *BubbleWrap) Pop(i int) {
-	bw.Bubbles[i] = true
+	bw.bubbles[i] = true
 }
 
 func (bw *BubbleWrap) Display() {
 	// display bubbles
 	var c, comp int
-	for _, v := range bw.Bubbles {
+	for _, v := range bw.bubbles {
 		if v {
 			if &bw.beforeColor != nil {
 				bw.beforeColor.Printf(cursorHide+"%v", bw.before)
@@ -80,10 +80,10 @@ func (bw *BubbleWrap) Display() {
 		}
 
 		c++
-		if c == bw.Column {
+		if c == bw.column {
 			fmt.Printf(cursorHide + "\n")
 			c = 0
-		} else if bw.Numbers < bw.Column && c == bw.Numbers {
+		} else if bw.numbers < bw.column && c == bw.numbers {
 			break
 		}
 	}
@@ -91,22 +91,22 @@ func (bw *BubbleWrap) Display() {
 	// display progress
 	fmt.Printf(cursorHide + "\n")
 	var space int
-	if bw.Numbers < bw.Column {
-		space = bw.Numbers
+	if bw.numbers < bw.column {
+		space = bw.numbers
 	} else {
-		space = bw.Column
+		space = bw.column
 	}
 	for i := 0; i < space-4; i++ {
 		fmt.Printf(cursorHide + " ")
 	}
-	persent := (float64(comp) / float64(bw.Numbers)) * 100.0
+	persent := (float64(comp) / float64(bw.numbers)) * 100.0
 	trunc := math.Trunc(persent)
 	fmt.Printf(cursorHide+"%3v%% \n", trunc)
 
-	for i := 0; i < space-len(strconv.Itoa(comp))-len(strconv.Itoa(bw.Numbers))-3; i++ {
+	for i := 0; i < space-len(strconv.Itoa(comp))-len(strconv.Itoa(bw.numbers))-3; i++ {
 		fmt.Printf(" ")
 	}
-	fmt.Printf(cursorHide+"%d / %d", comp, bw.Numbers)
+	fmt.Printf(cursorHide+"%d / %d", comp, bw.numbers)
 
 	// output result
 	if trunc == 100 {
@@ -116,8 +116,8 @@ func (bw *BubbleWrap) Display() {
 
 func (bw *BubbleWrap) Clear() {
 	var c, r int
-	r = int(bw.Numbers / bw.Column)
-	c = bw.Numbers + 2
+	r = int(bw.numbers / bw.column)
+	c = bw.numbers + 2
 	// move cursor to start point
 	fmt.Printf(cursorHide+"\033[%dA", r+2)
 	fmt.Printf(cursorHide+"\033[%dD", c)
