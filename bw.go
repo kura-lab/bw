@@ -16,6 +16,8 @@ type BubbleWrap struct {
 	after       string
 	beforeColor color.Color
 	afterColor  color.Color
+	interrupted bool
+	completed   bool
 }
 
 const cursorHide = "\033[?25l"
@@ -58,10 +60,17 @@ func (bw *BubbleWrap) ChangeBubbleColor(before *color.Color, after *color.Color)
 }
 
 func (bw *BubbleWrap) Pop(i int) {
+	if bw.interrupted || bw.completed {
+		return
+	}
 	bw.bubbles[i] = true
 }
 
 func (bw *BubbleWrap) Display() {
+	if bw.interrupted || bw.completed {
+		return
+	}
+
 	// display bubbles
 	var c, comp int
 	for _, v := range bw.bubbles {
@@ -111,11 +120,16 @@ func (bw *BubbleWrap) Display() {
 
 	// output result
 	if trunc == 100 {
+		bw.completed = true
 		fmt.Printf(cursorShow + "\n\nBubble Wrape finished.\n")
 	}
 }
 
 func (bw *BubbleWrap) Clear() {
+	if bw.interrupted || bw.completed {
+		return
+	}
+
 	var c, r int
 	r = int(bw.numbers / bw.column)
 	c = bw.numbers + 2
@@ -129,10 +143,18 @@ func (bw *BubbleWrap) Redisplay() {
 	bw.Display()
 }
 
+func (bw *BubbleWrap) Interrupt() {
+	if bw.interrupted || bw.completed {
+		return
+	}
+	bw.interrupted = true
+	fmt.Printf(cursorShow + "\n\nBubble Wrape interrupted.\n")
+}
+
 func (bw *BubbleWrap) printCopyRight() {
 	fmt.Printf("Bubble Wrap %v by kura.\n\n", bw.version())
 }
 
 func (bw *BubbleWrap) version() string {
-	return "1.0.6"
+	return "1.0.7"
 }

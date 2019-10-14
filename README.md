@@ -33,6 +33,9 @@ func main() {
 		time.Sleep(20 * time.Millisecond)
 		bw.Pop(i)
 		bw.Redisplay()
+
+		// you can call when need to interrupt
+		// bw.Interrupt()
 	}
 }
 ```

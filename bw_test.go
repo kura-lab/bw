@@ -72,3 +72,35 @@ func TestChangeBubbleColor(t *testing.T) {
 		bw.Redisplay()
 	}
 }
+
+func TestInterrupt(t *testing.T) {
+	numbers := 220
+
+	bw := NewBubbleWrap(numbers)
+	bw.Display()
+
+	for i := 0; i < numbers; i++ {
+		time.Sleep(10 * time.Millisecond)
+		bw.Pop(i)
+		bw.Redisplay()
+		if i == 120 {
+			bw.Interrupt()
+		}
+	}
+}
+
+func TestCompleted(t *testing.T) {
+	numbers := 220
+
+	bw := NewBubbleWrap(numbers)
+	bw.Display()
+
+	for i := 0; i < numbers; i++ {
+		time.Sleep(10 * time.Millisecond)
+		bw.Pop(i)
+		bw.Redisplay()
+	}
+	bw.Display()
+	bw.Clear()
+	bw.Redisplay()
+}
