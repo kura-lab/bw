@@ -29,3 +29,29 @@ func TestDemo(t *testing.T) {
 		bw.Redisplay()
 	}
 }
+
+func TestSetColumn(t *testing.T) {
+	numbers := 220
+
+	bw := NewBubbleWrap(numbers).SetColumn(60)
+	bw.Display()
+
+	for i := 0; i < numbers; i++ {
+		time.Sleep(10 * time.Millisecond)
+		bw.Pop(i)
+		bw.Redisplay()
+	}
+}
+
+func TestChangeBubbleShape(t *testing.T) {
+	numbers := 220
+
+	bw := NewBubbleWrap(numbers).ChangeBubbleShape("o", "x")
+	bw.Display()
+
+	for i := 0; i < numbers; i++ {
+		time.Sleep(10 * time.Millisecond)
+		bw.Pop(i)
+		bw.Redisplay()
+	}
+}
