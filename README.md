@@ -12,7 +12,7 @@ go get github.com/kura-lab/bw
 
 # Get start
 
-```
+```go
 package main
 
 import (
@@ -37,7 +37,7 @@ func main() {
 
 # Settings
 
-```
+```go
 numbers := 220
 
 // set numbers of a column
