@@ -18,6 +18,8 @@ type BubbleWrap struct {
 	afterColor  color.Color
 }
 
+const cursorHide = "\033[?25l"
+
 func NewBubbleWrap(numbers int) *BubbleWrap {
 	bw := new(BubbleWrap)
 	bw.printCopyRight()
@@ -64,22 +66,22 @@ func (bw *BubbleWrap) Display() {
 	for _, v := range bw.Bubbles {
 		if v {
 			if &bw.beforeColor != nil {
-				bw.beforeColor.Printf("%v", bw.before)
+				bw.beforeColor.Printf(cursorHide+"%v", bw.before)
 			} else {
-				fmt.Printf("%v", bw.before)
+				fmt.Printf(cursorHide+"%v", bw.before)
 			}
 			comp++
 		} else {
 			if &bw.afterColor != nil {
-				bw.afterColor.Printf("%v", bw.after)
+				bw.afterColor.Printf(cursorHide+"%v", bw.after)
 			} else {
-				fmt.Printf("%v", bw.after)
+				fmt.Printf(cursorHide+"%v", bw.after)
 			}
 		}
 
 		c++
 		if c == bw.Column {
-			fmt.Printf("\n")
+			fmt.Printf(cursorHide + "\n")
 			c = 0
 		} else if bw.Numbers < bw.Column && c == bw.Numbers {
 			break
@@ -87,7 +89,7 @@ func (bw *BubbleWrap) Display() {
 	}
 
 	// display progress
-	fmt.Printf("\n")
+	fmt.Printf(cursorHide + "\n")
 	var space int
 	if bw.Numbers < bw.Column {
 		space = bw.Numbers
@@ -95,16 +97,16 @@ func (bw *BubbleWrap) Display() {
 		space = bw.Column
 	}
 	for i := 0; i < space-4; i++ {
-		fmt.Printf(" ")
+		fmt.Printf(cursorHide + " ")
 	}
 	persent := (float64(comp) / float64(bw.Numbers)) * 100.0
 	trunc := math.Trunc(persent)
-	fmt.Printf("%3v%% \n", trunc)
+	fmt.Printf(cursorHide+"%3v%% \n", trunc)
 
 	for i := 0; i < space-len(strconv.Itoa(comp))-len(strconv.Itoa(bw.Numbers))-3; i++ {
 		fmt.Printf(" ")
 	}
-	fmt.Printf("%d / %d", comp, bw.Numbers)
+	fmt.Printf(cursorHide+"%d / %d", comp, bw.Numbers)
 
 	// output result
 	if trunc == 100 {
@@ -117,8 +119,8 @@ func (bw *BubbleWrap) Clear() {
 	r = int(bw.Numbers / bw.Column)
 	c = bw.Numbers + 2
 	// move cursor to start point
-	fmt.Printf("\033[%dA", r+2)
-	fmt.Printf("\033[%dD", c)
+	fmt.Printf(cursorHide+"\033[%dA", r+2)
+	fmt.Printf(cursorHide+"\033[%dD", c)
 }
 
 func (bw *BubbleWrap) Redisplay() {
