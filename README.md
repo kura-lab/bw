@@ -2,7 +2,7 @@
 
 # Demo
 
-![bubble_wrap](https://user-images.githubusercontent.com/1156984/66710841-4becfb00-edbb-11e9-855f-d68a86e60af3.gif)
+![bw](https://user-images.githubusercontent.com/1156984/66727039-b82d3480-ee77-11e9-8fba-4b7fa82dc50e.gif)
 
 # Installation
 
