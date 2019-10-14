@@ -134,5 +134,5 @@ func (bw *BubbleWrap) printCopyRight() {
 }
 
 func (bw *BubbleWrap) version() string {
-	return "1.0.5"
+	return "1.0.6"
 }
