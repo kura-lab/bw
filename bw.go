@@ -10,6 +10,8 @@ type BubbleWrap struct {
 	Numbers int
 	Column  int
 	Bubbles []bool
+	before  string
+	after   string
 }
 
 func NewBubbleWrap(numbers int) *BubbleWrap {
@@ -23,6 +25,8 @@ func NewBubbleWrap(numbers int) *BubbleWrap {
 	}
 
 	bw.Column = 50
+	bw.before = "*"
+	bw.after = "."
 
 	bw.Bubbles = make([]bool, bw.Numbers)
 
@@ -31,6 +35,12 @@ func NewBubbleWrap(numbers int) *BubbleWrap {
 
 func (bw *BubbleWrap) SetColumn(column int) *BubbleWrap {
 	bw.Column = column
+	return bw
+}
+
+func (bw *BubbleWrap) ChangeBubbleShape(before string, after string) *BubbleWrap {
+	bw.before = before
+	bw.after = after
 	return bw
 }
 
@@ -43,10 +53,10 @@ func (bw *BubbleWrap) Display() {
 	var c, comp int
 	for _, v := range bw.Bubbles {
 		if v {
-			fmt.Printf("%v", "*")
+			fmt.Printf("%v", bw.before)
 			comp++
 		} else {
-			fmt.Printf("%v", ".")
+			fmt.Printf("%v", bw.after)
 		}
 
 		c++
@@ -103,5 +113,5 @@ func (bw *BubbleWrap) printCopyRight() {
 }
 
 func (bw *BubbleWrap) version() string {
-	return "1.0.0"
+	return "1.0.4"
 }
