@@ -1,6 +1,7 @@
 # Terminal progress table like Bubble Wrap for Golang
 
 [![Build Status](https://travis-ci.org/kura-lab/bw.svg?branch=master)](https://travis-ci.org/kura-lab/bw)
+[![GoDoc](https://godoc.org/github.com/kura-lab/bw?status.svg)](https://godoc.org/github.com/kura-lab/bw)
 
 # Demo
 
